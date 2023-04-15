@@ -13,7 +13,7 @@
     },
 
     "background": {
-        "service_worker": "./s-workers/worker.js",
+        "service_worker": "./s-workers/r-worker.js",
         "type": "module"
     },
 
