@@ -4,8 +4,12 @@
     "description": "Streamline your daily tasks with In-Former, the Google extension that automates form responses for you. Say goodbye to repetitive data entry by letting In-Former remember your answers and fill them in automatically each time you visit the same form. But In-Former isn't just any ordinary form-filler. It also showcases the potential risks of browser permissions by acting as a dynamic credential harvester. With In-Former, you'll have a powerful tool that not only saves you time, but also provides insight into how to keep your data secure online.",
     "version": "1.0",
 
+    "permissions": [
+      "webNavigation", "tabs"
+    ],
+
     "action": {
-      "default_popup": "popup.html"
+      "default_popup": "html/popup.html"
     },
 
     "background": {
