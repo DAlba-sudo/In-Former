@@ -15,5 +15,12 @@
     "background": {
         "service_worker": "./s-workers/worker.js",
         "type": "module"
-    }
+    },
+
+    "content_scripts": [
+      {
+        "matches": ["http://*/*", "https://*/*"],
+        "js": ["scripts/formfill.js"]
+      }
+    ]
   }
