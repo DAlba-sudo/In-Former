@@ -36,15 +36,26 @@ function genFormReport(url, action) {
     }
 }
 
+function logPageLoad(ipAddress, url, pageTitle, httpResponseCode, loadTime) {
+    const logHeader = "WEB_NAVIGATION";
+    const date = new Date().toISOString().slice(0, 10);
+    const timestamp = Math.floor(Date.now() / 1000);
+    const logEntry = `${logHeader}: <${ipAddress}>\nDate: ${date}\nTimestamp: ${timestamp}\nURL: ${url}\nPage Title: ${pageTitle}\nHTTP Response Code: ${httpResponseCode}\nLoad Time: ${loadTime}s`;
+    return logEntry
+}
+
 function craftMsg(bf) {
-    let msg = "==========================================\nIN-FORMER: <" + ip + ">";
+    let msg = "==========================================\n";
 
     // iterate through the msg buffer and append to the payload.
     for (let i = 0; i < bf.b.length; i++) {
         let bfitm = bf.b[i];
-        msg = msg.concat('\n\t', bfitm.url, "\t", bfitm.tov, " (", bfitm.action, ")");
+        if (i == 0) {
+            msg = msg.concat(logPageLoad(ip, bfitm.url, null, null, null));
+        } else {
+            msg = msg.concat('\n\n', logPageLoad(ip, bfitm.url, null, null, null));
+        }
     }
-    console.log(ip);
     return msg;
 }
 
