@@ -1,3 +1,9 @@
+```
+This is meant to be used for educational purposes and only on hosts that you own and have express permission
+to perform testing. I am not liable for your actions and failure to follow these stipulations and those set 
+forth in the LISENCE will result in - well - consequences from the law. 
+```
+
 <div style="text-align: center; display:flex; flex-direction: row; justify-content: center;">
     <div style="display: inline-block;">
         <img height="200px" src="./icons/bitmap-lrg.png"/>
@@ -19,12 +25,6 @@ They say that phishing is the leading way through which malware can infect compu
 
 ```
 If my grammarly extension wanted to, just how much harm could it do?
-```
-    
-```
-This is meant to be used for educational purposes and only on hosts that you own and have express permission
-to perform testing. I am not liable for your actions and failure to follow these stipulations and those set 
-forth in the LISENCE will result in - well - consequences from the law. 
 ```
 
 ## What does In-Former do?
