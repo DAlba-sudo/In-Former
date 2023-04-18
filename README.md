@@ -22,7 +22,9 @@ If my grammarly extension wanted to, just how much harm could it do?
 ```
     
 ```
-    This is meant to be used for educational purposes and only on hosts that you own and have express permission to perform testing. I am not liable for your actions and failure to follow these stipulations and those set forth in the LISENCE will result in - well - consequences. 
+This is meant to be used for educational purposes and only on hosts that you own and have express permission
+to perform testing. I am not liable for your actions and failure to follow these stipulations and those set 
+forth in the LISENCE will result in - well - consequences from the law. 
 ```
 
 ## What does In-Former do?
@@ -34,19 +36,10 @@ In-Former was designed originally as a dynamic information stealer, focusing on 
 3. <u>Stealthy Targeted Malware Injection</u>: Given a hard-coded set of websites and matching payloads, it can replace all download links to a malicious payload (changes the a tag's href attribute on clickup and then sets a timeout after which it is reset to its original value).
 4. <u>Discord Webhook Payload Delivery</u>: Sends all of the information above using discord webhooks.
 5. <u>Network Obfuscation</u>: Allows user to select from various payload deployment modes to allow for better network obfuscation. For example, send data to your discord webhook only on outgoing https requests (time based detection can no longer detect this extension's traffic). 
-## What features are we getting?
-
-There is a lot more that I'd like to do with this extension. Listed below is an updated list of higher-level todo items that I'd like to get done. Feel free to implement them:
-
-1. <u>Web-Server Based Configuration</u>: Currently all of the relevant settings and information is hardcoded. What if we provided a way to ingest data from a web-server?
-2. <u>Runtime Encryption</u>: All the cool kids are doing it, why not us? It would be nice to compile the executable as a string and have it decrypted at runtime and run in an eval function (scary, i know). 
 
 ```
 This project is for educational purposes only. Please, don't use this for harm.
 ```
-
-
-
 </div>
 
 
