@@ -20,6 +20,10 @@ They say that phishing is the leading way through which malware can infect compu
 ```
 If my grammarly extension wanted to, just how much harm could it do?
 ```
+    
+```
+    This is meant to be used for educational purposes and only on hosts that you own and have express permission to perform testing. I am not liable for your actions and failure to follow these stipulations and those set forth in the LISENCE will result in - well - consequences. 
+```
 
 ## What does In-Former do?
 
