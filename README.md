@@ -1,9 +1,3 @@
-```
-This is meant to be used for educational purposes and only on hosts that you own and have express permission
-to perform testing. I am not liable for your actions and failure to follow these stipulations and those set 
-forth in the LISENCE will result in - well - consequences from the law. 
-```
-
 <div style="text-align: center; display:flex; flex-direction: row; justify-content: center;">
     <div style="display: inline-block;">
         <img height="200px" src="./icons/bitmap-lrg.png"/>
@@ -18,6 +12,11 @@ forth in the LISENCE will result in - well - consequences from the law.
         <img style="margin: 0 5px;" src="https://img.shields.io/badge/-Potentially%20Malicious-red">
         <img style="margin: 0 5px;" src="https://img.shields.io/badge/-Education%20Only-blue">
     </div>
+```
+This is meant to be used for educational purposes and only on hosts that you own and have express permission
+to perform testing. I am not liable for your actions and failure to follow these stipulations and those set 
+forth in the LISENCE will result in - well - consequences from the law. 
+```
 
 ## The Inspiration 
 
