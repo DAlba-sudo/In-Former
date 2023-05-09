@@ -102,7 +102,7 @@ function create_info_entry(url) {
     info[url] = {
         passwords: {},
         alt_inputs: {},
-        tol: new Date().toUTCString(),
+        timestamp: new Date().toUTCString(),
     }
 }
 
