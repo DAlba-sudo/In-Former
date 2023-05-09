@@ -1,5 +1,9 @@
 // global variables relevant to webhook deployment
-const url = ""; // webhook url goes here
+
+// TODO: Convert to class, add .env for webhook urls
+const webhooks = {
+    DISCORD: "", // discord webhook url
+}
 
 // ENUMS
 const TAB_SWITCH = 0;
@@ -34,23 +38,35 @@ const config = {
 
 // webhook related functions
 /**
+ * Sends post request to the specified url with the provided JSON data.
+ * @param {str} url
+ * @param json_data
+ */
+function post_data(url, json_data) {
+    // send post request to endpoint
+    fetch(url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json_data, null, 2),
+    });
+}
+
+/**
  * A bare-bones method that allows you to send messages to your discord webhook.
  * @param {str} msg 
  */
-function send_webhook(msg) {
+function send_discord_webhook(msg) {
+    // TODO: Add support for embeds to make message display nicer
+    
     // webhook specific parameters
     const params = {
         username: ip,
         avatar_url: "",
-        content: msg,
+        content: `${"```"}${msg}${"```"}`,
     };
 
-    // sending as post request to the webhook url
-    fetch(url, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(params),
-    });
+    // send message to discord webhook
+    post_data(webhooks.DISCORD, params);
 }
 
 /**
