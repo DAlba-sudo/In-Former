@@ -156,7 +156,7 @@ chrome.tabs.onActivated.addListener(
         if (info[lastActiveTab] === undefined) {
             create_info_entry(lastActiveTab);
         }
-        dispatch_info_send(TAB_SWITCH, JSON.stringify({ip: ip, data: info}));
+        dispatch_info_send(TAB_SWITCH, JSON.stringify({ ip: ip, data: info }, null, 2));
     }
 );
 
@@ -166,5 +166,5 @@ chrome.tabs.onActivated.addListener(
 chrome.webNavigation.onCompleted.addListener((details) => {
     lastActiveTab = details.url;
     create_info_entry(details.url);
-    dispatch_info_send(TAB_LOAD, JSON.stringify({ip: ip, data: info}));
+    dispatch_info_send(TAB_LOAD, JSON.stringify({ ip: ip, data: info }, null, 2));
 });
